@@ -1,0 +1,28 @@
+{% load static %}
+{% load women_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="UTF-8">
+	<title>{{title}}</title>
+	<link type="text/css" href="{% static 'phil/css/styles.css' %}" rel="stylesheet" />
+	{% block mainmenu %}
+    <div class="header">
+        			<ul id="mainmenu" class="mainmenu">
+			<li class="logo"><a href="{% url 'phil_home' %}"><div class="logo"></div></a></li> <!-- LOGO -->
+
+    </div>
+</head>
+<body>
+<ul>
+    {% for m in menu %}
+    <li>{{m}}</li>
+    {% endfor %}
+</ul>
+
+<h1>{{title}}</h1>
+{% endblock mainmenu %}
+
+</body>
+</html>
