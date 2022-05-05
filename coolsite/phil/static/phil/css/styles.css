@@ -6,46 +6,95 @@ html, body {
 	width: 100%;
 	color: #444;
 }
-
-a {
-	color: #0059b2;
-	text-decoration: none;
-}
 a:hover {
-	color: #CC0000;
-	text-decoration: underline;
+	font-weight: 600;
 }
 .header {
-
-	height: 60px;
-	width: 100%;       /* Fixing menu */
-	position: fixed;   /* Fixing menu */
+    width: 100%;
+	position: fixed;       /* Fixing top menu */
+	top: 0px;              /* Fixing top menu */
+	background: #3C2922;   /* Background for top menu */
+	list-style: none;
 }
-.logo {
-	background: url('../images/logo.png') no-repeat 10px 5px;
-	width: 70px;
+.logo {                    /* Style for logo */
+	background: url('../images/logo.png') no-repeat;
+	width: 146px;
 	height: 60px;
 }
 ul.mainmenu {
-	list-style: none;
 	margin: 0;
-	padding: 0;
-	height: 60px;
-	color: #fdc073;
-	font-size: 20px;
-	overflow: hidden;
+	height: 60px;   /* thickness (толщина) of topmenu line */
+	font-size: 16px; /* menu font size */
+
+	/* overflow: hidden;   words are transferred when there is not enough space */
+
 }
-ul.mainmenu li {
+ul.mainmenu li {   /* setting distances near words of top menu */
 	float: left;
-	margin: 18px 40px 0 30px;
+	margin: 18px 40px 0 10px;
+	list-style: none;
 }
 ul.mainmenu li.logo {margin: 0;}
-ul.mainmenu li.last {float: right;}
+.last a {
+    color: #fdc073;
+    float: right;
+	text-decoration: none;
+}
 
 ul.mainmenu li a {
-	color: #fdc073;   /* МЕНЯЕТ цвет ссылок в верхнем меню */
-	text-decoration: none;
+	color: #fdc073;   /* Change link's color in top menu */
+	text-decoration: none;   /* Delete underline in top menu */
 }
 ul.mainmenu li a:hover {
 	color: #FDA83D;
+}
+.leftchapters {
+    background: #eee;
+	width: 230px;
+	min-height: 100%;
+	margin: 0;
+	padding: 0px 0px 10px 0px;
+	list-style: none;
+	font-size: 14px;
+}
+.leftchapters a {
+	color: #444;  /* меняет цвет ссылок CATEGORIES слева */
+	background: #eee;   /* Left vertical stripe's background*/
+	text-decoration: none;
+}
+.leftchapters ul {
+	width: 230px;
+	min-height: 100%;
+	margin: 0;
+	padding: 20px 10px 10px 20px;
+	list-style: none;
+	font-size: 20px;
+}
+.left-chapters ul li {   /* Indent (отступы) between points in left menu */
+	margin: 30px 0 0 0;
+	color: #999;
+}
+.link-read-post {
+	text-align: right;
+	align: right;
+    padding: 5px 10px 5px 10px;
+    margin: 0;
+    float: right;
+
+}
+.link-read-post a {
+	padding: 10px;
+	min-width: 100px;
+	background: #333671;
+	color: #fff;
+	text-decoration: none;
+}
+a.contact {
+    color: #fdc073; /* #318CE7; */
+}
+img.img {
+	max-width: 100px;
+	height: auto;
+	float: left;
+	padding: 0 10px 10px 0;
 }

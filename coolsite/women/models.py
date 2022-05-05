@@ -11,8 +11,8 @@ class Women(models.Model):  # Wonen = name
     is_published = models.BooleanField(default=True, verbose_name="Публикация")
     cat = models.ForeignKey('Category', on_delete=models.PROTECT, verbose_name="Категории")
 
-    def __str__(self):
-        return self.title
+    def __str__(self):      # function for showing field 'title' in SQL query
+        return self.title   # SQL: Women.objects.all()
 
     def get_absolute_url(self):   # Use similar name ('get_absolute_url') for using in admin panel
         return reverse('post', kwargs={'post_slug': self.slug})   # функция reverse составляет url

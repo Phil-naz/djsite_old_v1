@@ -1,28 +1,68 @@
-{% load static %}
-{% load women_tags %}
+{% load static %}   <!-- This tag connecting to static files (CSS,JS,IMAGES) -->
+{% load phil_tags %}
+
 <!DOCTYPE html>
 <html>
 <head>
-
-    <meta charset="UTF-8">
-	<title>{{title}}</title>
-	<link type="text/css" href="{% static 'phil/css/styles.css' %}" rel="stylesheet" />
-	{% block mainmenu %}
-    <div class="header">
-        			<ul id="mainmenu" class="mainmenu">
-			<li class="logo"><a href="{% url 'phil_home' %}"><div class="logo"></div></a></li> <!-- LOGO -->
-
-    </div>
+        <title>{{ title }}</title>
+    	<link type="text/css" href="{% static 'phil/css/styles.css' %}" rel="stylesheet" />
+    	<link rel="shortcut icon" href="{% static 'phil/images/main.ico' %}" type="image/x-icon"/>
 </head>
 <body>
-<ul>
-    {% for m in menu %}
-    <li>{{m}}</li>
-    {% endfor %}
-</ul>
 
-<h1>{{title}}</h1>
+{% block mainmenu %}
+
+		<div class="header">
+            <table width="100%"><tr><td>
+            <a href="tel:+79216544880" class="contact">+79216544880</a><br>
+            <a href="https://t.me/Phil_naz" class="contact">TG: @Phil_naz</a><br>
+            <a href="mailto:6544880@mail.ru" class="contact">6544880@mail.ru</a><br>
+</td><td>
+            <a href="https://www.youtube.com/channel/UC-hDYi0n6e4Hzgu5IHKtP4Q" target="_blank"><img height="60" src="{% static 'phil/images/share_yt.png' %}"></a>
+
+            </td><td>
+			<ul class="mainmenu">
+
+			<li class="logo"><a href="{% url 'phil_home' %}"><div class="logo"></div></a></li> <!-- LOGO -->
+            <!-- Top menu bar -->
+    {% phil_menucat as menu %}
+    {% for m in menu %}
+         {% if not forloop.last %}
+         <li><a href="{% url m.url_name %}">{{m.name}}</a></li>
+         {% else %}
+         <td><li class="last"><a href="{% url m.url_name %}">{{m.name}}</a></li></td>
+        {% endif %}
+    {% endfor %}
+            </ul>
+
+            <div class="clear"></div>
+            </td></tr></table>
+          </div>
+
+
 {% endblock mainmenu %}
 
+<br><br>
+{% block content %}
+{% endblock content %}
+<!-- Footer -->
+<table width="100%">
+
+    <tr><td align="center"><div>
+		<p>
+&copy; <script language="javascript" type="text/javascript"><!--
+var d = new Date();
+
+var day=new Array("Воскресенье","Понедельник","Вторник",
+"Среда","Четверг","Пятница","Суббота");
+
+var month=new Array("января","февраля","марта","апреля","мая","июня",
+"июля","августа","сентября","октября","ноября","декабря");
+
+document.write(d.getFullYear() + " г.");
+//--></script>
+		Частичное или полное копирование информации с данного сайта для распространения на других ресурсах, в том числе и бумажных, без разрешения строго запрещено.</p>
+	</div></td></tr>
+</table>
 </body>
 </html>

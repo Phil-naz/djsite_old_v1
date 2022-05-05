@@ -4,8 +4,8 @@ from .models import *                            # импорт для отоб�
 
 class WomenAdmin(admin.ModelAdmin):               #дополнительные поля в админке
     list_display = ('id', 'title', 'time_create', 'photo', 'is_published')
-    list_display_links = ('id', )
-    search_fields = ('title', 'content')
+    list_display_links = ('id', )   # make links for editing
+    search_fields = ('title', 'content')   # for searching in this columns
     list_editable = ('is_published', 'title')             # изменяемые в админке поля
     list_filter = ('is_published', 'time_create')
     prepopulated_fields = {"slug": ("title",)}  # автоматическое формирование slug в админке

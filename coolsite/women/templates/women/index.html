@@ -13,7 +13,7 @@
 {% endif %}
 
 				<h2>{{p.title}}</h2>
-	{% autoescape on %}
+	{% autoescape on %}   <!-- For using <tags> in text -->
 	{{p.content|linebreaks|truncatewords:50}}
 	{% endautoescape %}
 			<div class="clear"></div>

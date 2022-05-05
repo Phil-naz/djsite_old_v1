@@ -1,11 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-</head>
-<body>
+{% extends 'phil/base.html' %}
 
+{% block content %}
 
-</body>
-</html>
+<ul>
+    {% for p in posts %}
+    <li>
+        <h2>{{p.name}}</h2>
+        <p>{{p.description}}</p>
+        <hr>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock content %}
