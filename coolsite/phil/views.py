@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from .utils import *
 from .models import *
 
+# 08 may 2022y maked commit 'Commit #2 start'
+
 menu = [{'name': 'Чем я могу быть полезен???', 'url_name': 'phil_about'},
         {'name': 'Прочитанные книги', 'url_name': 'books'},
         {'name': 'Тексты', 'url_name': 'texts'},
@@ -39,3 +41,12 @@ def about(request):
 
 def login(request):
      return HttpResponse('<h1>Phil app’s login page</h1>')
+
+# In file 'views.py' in app 'phil' added comment: '# 08 may 2022y maked commit 'Commit #2 start';
+# Maked top menu, there added contacts, youtube logo, menu points, logo and it fixed on top;
+# Main page empty;
+# Page 'Прочитанные книги' make list of books: photo, author's description (take from DB), under two buttons: 'Моё описание и цитаты' & 'Описание книги (автор или издательство)', if push button transition to simple page with text: 'Author / publishing house description of book
+# 1'
+# Page 'women' available at 'http://127.0.0.1:8000/women/';
+# Сhapter 'women' made completely;
+# In database tables: 'phil_books', 'phil_quotes', 'women_categoty' & 'women_women';
