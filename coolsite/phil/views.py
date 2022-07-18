@@ -1,43 +1,102 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse, HttpResponseNotFound, Http404
+from django.views.generic import ListView, DetailView
+
 from .utils import *
 from .models import *
+from .forms import *
 
-# 08 may 2022y maked commit 'Commit #2 start'
-
-menu = [{'name': 'Чем я могу быть полезен???', 'url_name': 'phil_about'},
-        {'name': 'Прочитанные книги', 'url_name': 'books'},
-        {'name': 'Тексты', 'url_name': 'texts'},
-        {'name': 'Замеры тела','url_name': 'measurments'},
-        {'name': 'Войти', 'url_name': 'phil_login'},
-]
+# backup copy 18 July 2022 'Commit #3: creating form for adding book (it's working after a lot of fail attempts)'
 
 def index(request):
 
 #     return HttpResponse('<h1>Phil app’s main page</h1>')
     context = {
-        'menu': menu,
         'title': 'Страница Филиппа Назаренко',
     }
     return render(request, 'phil/index.html', context=context)
 
-def books(request):
-    post = Books.objects.all()
+class BookClass(ListView):
+    model = Books
+    template_name = 'phil/books.html'
+    extra_context = {'title': 'Прочитанные мною книги'}
+
+
+
+def book(request, book_slug):
+    post_left = Books.objects.all()
+    post = get_object_or_404(Books, slug=book_slug)
+
     context = {    # moving parameters to function 'return'
-        'menu': menu,
-        'title': 'Прочитанные мною книги',
-        'post': post
+        'title': post.name,
+        'post': post,
+        'post_left': post_left,
+        'book': post.pk,
+        'book_selected': post.id,
     }
-    return render(request, 'phil/books.html', context=context)
 
-def book(request, book_id):
-    return HttpResponse(f"<h1>My description of book</h1><p>{book_id}</p>")
+    return render(request, 'phil/book.html', context=context)
 
-def book_ad(request, book_id):
-    return HttpResponse(f"<h1>Author / publishing house description of book</h1><p>{book_id}</p>")
+def add_book(request):
+#    form = AddBookForm   # from file'forms.py'
+   if request.method == 'POST':
+       form = AddBookForm(request.POST)
+       if form.is_valid():
+           # print(form.cleaned_data)
+           try:
+               Books.objects.create(**form.cleaned_data)
+               return redirect('books')
+           except:
+               form.add_error(None, 'Ошибка добавления книги')
+   else:
+       form = AddBookForm()
+   return render(request, 'phil/addbook.html', {'form': form, 'title': 'Добавить книгу'})
+
+def add_book(request):
+#    form = AddBookForm   # from file'forms.py'
+   if request.method == 'POST':
+       form = AddBookForm(request.POST)
+       if form.is_valid():
+           # print(form.cleaned_data)
+           try:
+               Books.objects.create(**form.cleaned_data)
+               return redirect('books')
+           except:
+               form.add_error(None, 'Ошибка добавления книги')
+   else:
+       form = AddBookForm()
+   return render(request, 'phil/addbook.html', {'form': form, 'title': 'Добавить книгу'})
+# #    form = AddBookForm()   # from file'forms.py'
+#     if request.method == 'POST':
+#         form = AddBookForm(request.POST)
+#         if form.is_valid():
+#             #print(form.cleaned_data)
+#             try:
+#                 Books.objects.create(**form.cleaned_data)
+#                 return redirect('books')
+#             except:
+#                 form.add_error(None, 'Ошибка добавления книги')
+#     else:
+#         form = AddBookForm()
+#     return render(request, 'phil/addbook.html', {'form': form, 'title': 'Добавить книгу'})
+
+
+
+# class ShowBook(DetailView):
+#     model = Books
+#     template_name = 'phil/book.html'
+#     slug_url_kwarg = 'book_slug'
+#     context_object_name = 'post'
+
+    # def get_context_data(self, *, object_list=None, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['title'] = context['post']
+    #     context['post_left'] = 'post_left'
+    #     return context
+
 
 def about(request):
-    return render(request, 'phil/about.html', {'title': 'Чем я могу быть полезен???', 'menu': menu})
+    return render(request, 'phil/about.html', {'title': 'Чем я могу быть полезен???',})
 
 def login(request):
      return HttpResponse('<h1>Phil app’s login page</h1>')

@@ -21,8 +21,6 @@ class WomenHome(DataMixin, ListView):   # class 'ListView' includes paginator
     # paginate_by = 3   # count of articles, included 1 page - transfer to 'utils.py'
     model = Women   # will show articles from 'model.py' - 'Women'
     template_name = 'women/index.html'   # Way fo template. By default use 'women/women_list.html'
-    extra_context = {'title': 'Главная страница'}   # use 'extra_context' only for static data
-
 
     def get_context_data(self, *, object_list=None, **kwargs):   # for transfer dynamic data
         context = super().get_context_data(**kwargs)   # mandatory (обязательное) condition

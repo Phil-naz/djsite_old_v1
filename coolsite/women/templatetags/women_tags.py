@@ -21,7 +21,7 @@ def show_categories(sort=None, cat_selected=0):
 
 @register.simple_tag(name='menucat')
 def menucat():
-    return [{'title': "О сайте", 'url_name': 'about'},
+    return [{'title': "О сайтеj", 'url_name': 'about'},
            {'title': "Добавить статью", 'url_name': 'add_page'},
            {'title': "Обратная связь", 'url_name': 'contact'},
            {'title': "Войти", 'url_name': 'login'}]

@@ -13,12 +13,14 @@
 {% block mainmenu %}
 
 		<div class="header">
-            <table width="100%"><tr><td>
-            <a href="tel:+79216544880" class="contact">+79216544880</a><br>
-            <a href="https://t.me/Phil_naz" class="contact">TG: @Phil_naz</a><br>
-            <a href="mailto:6544880@mail.ru" class="contact">6544880@mail.ru</a><br>
-</td><td>
-            <a href="https://www.youtube.com/channel/UC-hDYi0n6e4Hzgu5IHKtP4Q" target="_blank"><img height="60" src="{% static 'phil/images/share_yt.png' %}"></a>
+            <table width="100%"><tr><td width="170">
+            <a href="tel:+79216544880" class="contact"><img height="20" src="{% static 'phil/images/whatsapp.png' %}">+79216544880</a><br>
+            <a href="https://t.me/Phil_naz" class="contact"><img height="20" src="{% static 'phil/images/telegram.png' %}">@Phil_naz</a><br>
+            <a href="mailto:6544880@mail.ru" class="contact"><img height="20" src="{% static 'phil/images/email.png' %}">6544880@mail.ru</a><br>
+</td><td width="150px">
+            <a href="https://www.youtube.com/channel/UC-hDYi0n6e4Hzgu5IHKtP4Q" target="_blank"><img height="45" src="{% static 'phil/images/youtube.png' %}"></a>
+            <a href="https://vk.com/id668104" target="_blank"><img height="45" src="{% static 'phil/images/vk.png' %}"></a>
+            <a href="https://www.facebook.com/profile.php?id=100007783784310" target="_blank"><img height="45" src="{% static 'phil/images/fb.png' %}"></a>
 
             </td><td>
 			<ul class="mainmenu">
@@ -26,9 +28,10 @@
 			<li class="logo"><a href="{% url 'phil_home' %}"><div class="logo"></div></a></li> <!-- LOGO -->
             <!-- Top menu bar -->
     {% phil_menucat as menu %}
+            <!-- Top menu from file templrtags/phil_tags.py -->
     {% for m in menu %}
          {% if not forloop.last %}
-         <li><a href="{% url m.url_name %}">{{m.name}}</a></li>
+         <li class="topmenu"><a href="{% url m.url_name %}">{{m.name}}</a></li>
          {% else %}
          <td><li class="last"><a href="{% url m.url_name %}">{{m.name}}</a></li></td>
         {% endif %}
@@ -42,11 +45,11 @@
 
 {% endblock mainmenu %}
 
-<br><br>
+<table><tr><td height="34"> </td> </tr></table>
 {% block content %}
 {% endblock content %}
 <!-- Footer -->
-<table width="100%">
+<table class="bottom">
 
     <tr><td align="center"><div>
 		<p>
@@ -59,9 +62,9 @@ var day=new Array("Воскресенье","Понедельник","Вторн�
 var month=new Array("января","февраля","марта","апреля","мая","июня",
 "июля","августа","сентября","октября","ноября","декабря");
 
-document.write(d.getFullYear() + " г.");
+document.write(d.getFullYear() + "г.");
 //--></script>
-		Частичное или полное копирование информации с данного сайта для распространения на других ресурсах, в том числе и бумажных, без разрешения строго запрещено.</p>
+		Частичное или полное копирование информации с данного сайта для распространения на других ресурсах, в том числе и бумажных, без разрешения запрещено.</p>
 	</div></td></tr>
 </table>
 </body>
