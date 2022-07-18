@@ -1,7 +1,6 @@
 from django.db import models
 from django.urls import reverse
 
-
 class Books(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название")  # 'verbose_name' for view in the admin panel
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
