@@ -8,33 +8,37 @@
 	<ul>
 		<li><a href="{% url 'add_book' %}"><button><div align="center">Добавить книгу</div></button></a></li><br>
 		<li class="leftchapters"><a href="{% url 'books' %}">Все книги</a></li>
-        {% for p in post_left %}
+        {% for p in object_list %}
 			{% if p.pk == book %}
 		<li class="selected">{{p.name}} ({{p.author}})</li>
 			{% else %}
 		<li class="leftchapters"><a href="{{ p.get_absolute_url }}">{{p.name}} ({{p.author}})</a></li>
 			{% endif %}
 		{% endfor %}
+
+		{% for p in object_list %}
+		<li class="leftchapters"><a href="{{ p.get_absolute_url }}">{{p.name}} ({{p.author}})</a></li>
+	    {% endfor %}
     </ul>
     </td>
 
 <br>
 	<td width="10"> </td>
 <td>
-<h1>&nbsp;&nbsp;{{post.name}} ({{post.author}})</h1>
+<h1>&nbsp;&nbsp;{{book.name}} ({{book.author}})</h1>
 
-{% if post.photo %}
-<p><img class="img-book" src="{{post.photo.url}}"></p>
+{% if book.photo %}
+<p><img class="img-book" src="{{book.photo.url}}"></p>
 {% endif %}
 
 <h3 class="head">Описание книги (автор или издательство)</h3>
 
 
-{{post.author_description|linebreaks}}
+{{book.author_description|linebreaks}}
 
-{% if post.my_description %}
+{% if book.my_description %}
 	<h3 class="head">Моё описание / отзыв</h3>
-	{{post.my_description|linebreaks}}
+	{{book.my_description|linebreaks}}
 {% endif %}
 </td></tr></table>
 {% endblock content %}

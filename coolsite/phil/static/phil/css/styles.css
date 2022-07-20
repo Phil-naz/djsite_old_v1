@@ -151,3 +151,9 @@ img.img-book {
     width: 370px;
     font-size: 16px;
 }
+.form-error ul {
+    list-style: none;
+    padding: 0;
+    color: #CC0000;
+    font-weight: 700;
+}
