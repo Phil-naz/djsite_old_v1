@@ -14,10 +14,11 @@ from .models import *
 from .utils import *
 
 
-# for simple text: return HttpResponse('<h1>Phil app’s main page</h1>')
+# Menu in the file 'utils.py' (DataMixin)
 
 
 class WomenHome(DataMixin, ListView):   # class 'ListView' includes paginator
+    # class 'DataMixin' - functions from file 'utils.py'
     # paginate_by = 3   # count of articles, included 1 page - transfer to 'utils.py'
     model = Women   # will show articles from 'model.py' - 'Women'
     template_name = 'women/index.html'   # Way fo template. By default use 'women/women_list.html'
@@ -28,25 +29,13 @@ class WomenHome(DataMixin, ListView):   # class 'ListView' includes paginator
 #        context['menu'] = menu   # MENU gets from 'women_tags.py'
 #        context['title'] = 'Главная страница'   # we may transfer static data here
 #        context['cat_selected'] = 0   # for 'Все категории' mark charged
-        c_def = self.get_user_context(title = 'Главная страница')
+        c_def = self.get_user_context(title = 'Главная страница')   # for adding to transferred class 'DataMixin'
+        # this class created in file 'utils.py'
         context['cat_selected'] = 0
         return dict(list(context.items()) + list(c_def.items()))
 
     def get_queryset(self):   # show entries (записи) marked 'is_published'
-        return Women.objects.filter(is_published=True).select_related('cat')
-
-
-# def index(request):
-#    posts = Women.objects.all()
-#
-#    context = {           # moving parameters to function 'return'
-#        'posts': posts,
-#        'title': 'Главная страница',
-#        'cat_selected': 0,
-#    }
-#
-#    return render(request, 'women/index.html', context=context)
-
+        return Women.objects.filter(is_published=True).select_related('cat')   # '.select_related' - optimization SQL query
 
 def about(request):
     contact_list = Women.objects.all()
@@ -68,20 +57,8 @@ class AddPage(LoginRequiredMixin, DataMixin, CreateView):   # 'LoginRequiredMixi
         context = super().get_context_data(**kwargs)   # mandatory (обязательное) condition
         context['menu'] = menu   # MENU gets from 'women_tags.py'
 #        context['title'] = 'Добавление статьи'   # we may transfer static data here
-        c_def = self.get_user_context(title = 'Добавление статьи')
-        return dict(list(context.items()) + list(c_def.items()))
-
-# def addpage(request):
-#     if request.method == 'POST':
-#         form = AddPostForm(request.POST, request.FILES)   # function 'AddPostForm' in file 'forms.py'
-#         if form.is_valid():
-#             #print(form.cleaned_data)
-#             form.save()
-#             return redirect('home')
-#     else:
-#         form = AddPostForm()
-#     return render(request, 'women/addpage.html', {'form': form, 'menu': menu, 'title': 'Добавление статьи'})
-
+        c_def = self.get_user_context(title = 'Добавление статьи')   # class 'DataMixin'
+        return dict(list(context.items()) + list(c_def.items()))   # combine (объединяем) classes ‘context’ & c_def (local data for transferring)
 
 
 def contact(request):
@@ -102,8 +79,8 @@ class ShowPost(DataMixin, DetailView):
         context['menu'] = menu   # MENU gets from 'women_tags.py'
 #        context['title'] = context['post']   # we may transfer static data here
 #        context['cat_selected'] = 0   # for 'Все категории' mark changed
-#        context['cat_selected'] = Women.cat_id
-        c_def = self.get_user_context(title = context['post'])
+        context['cat_selected'] = Women.cat_id
+        c_def = self.get_user_context(title = context['post'])   # class 'DataMixin'
         return dict(list(context.items()) + list(c_def.items()))
 
 
@@ -128,17 +105,16 @@ class WomenCategory(DataMixin, ListView):
 
     def get_queryset(self):
         print(connection.queries)
-        return Women.objects.filter(cat__slug=self.kwargs['cat_slug'], is_published=True).select_related('cat').select_related('cat')
+        return Women.objects.filter(cat__slug=self.kwargs['cat_slug'], is_published=True).select_related('cat')   # '.select_related' - optimization SQL query
 
 
     def get_context_data(self, *, object_list=None, **kwargs):   # for transfer dynamic data
         context = super().get_context_data(**kwargs)   # mandatory (обязательное) condition
-        context['menu'] = menu
 #        context['title'] = 'Категория: ' + str(context['posts'][0].cat)   # we may transfer static data here
 #        context['cat_selected'] = context['posts'][0].cat_id   # for Наименование категории mark changed
 #        return context
         c = Category.objects.get(slug=self.kwargs['cat_slug'])
-        c_def = self.get_user_context(title = 'Категория: ' + str(c.name), cat_selected = c.pk)
+        c_def = self.get_user_context(title = 'Категория: ' + str(c.name), cat_selected = c.pk)   # class 'DataMixin'
         return dict(list(context.items()) + list(c_def.items()))
 
 # def show_category(request, cat_slug):
@@ -157,29 +133,29 @@ class WomenCategory(DataMixin, ListView):
 #     return render(request, 'women/index.html', context=context)
 
 class RegisterUser(DataMixin, CreateView):
-    form_class = RegisterUserForm
+    form_class = RegisterUserForm   # standard form in Django 'UserCreationForm'
     template_name = 'women/register.html'
     success_url = reverse_lazy('login')
 
     def get_context_data(self, *, object_list = None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title = 'Регистрация')
+        c_def = self.get_user_context(title = 'Регистрация')   # class 'DataMixin'
         return dict(list(context.items()) + list(c_def.items()))
 
-    def form_valid(self, form):   # function if registration succesed
+    def form_valid(self, form):   # function if registration successfully
         user = form.save()
-        login(self.request, user)
+        login(self.request, user)   # maybe 1 argument, without (self.request)
         return redirect('home')
 
 
 
 class LoginUser(DataMixin, LoginView):
-    form_class = LoginUserForm
+    form_class = LoginUserForm   # standard form in Django 'AuthenticationForm'
     template_name = 'women/login.html'
 
     def get_context_data(self, *, object_list = None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title = 'Авторизация')
+        c_def = self.get_user_context(title = 'Авторизация')   # class 'DataMixin'
         return dict(list(context.items()) + list(c_def.items()))
 
     def get_success_url(self):   # URL for redirecting authorizated user
@@ -193,11 +169,10 @@ class ContactFormView(DataMixin, FormView): # !!! FormView don't import in lesso
     form_class = ContactForm
     template_name = 'women/contact.html'
     success_url = reverse_lazy('home')
-#    allow_empty = False   # if incorrect URL '/category/xxx' show page 404
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)   # mandatory (обязательное) condition
-        c_def = self.get_user_context(title = 'Обратная связь')
+        c_def = self.get_user_context(title = 'Обратная связь')   # class 'DataMixin'
         return dict(list(context.items()) + list(c_def.items()))
 
     def form_valid(self, form):

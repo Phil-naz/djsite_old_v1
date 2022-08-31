@@ -3,14 +3,14 @@ from women.models import *
 
 register = template.Library()
 
-@register.simple_tag(name='getcats')
+@register.simple_tag(name='getcats')   # this line make tag from simple function
 def get_categories(filter=None):
     if not filter:
         return Category.objects.all()
     else:
         return Category.objects.filter(pk=filter)
 
-@register.inclusion_tag('women/list_categories.html')
+@register.inclusion_tag('women/list_categories.html')   # this tag create part of HTML-page
 def show_categories(sort=None, cat_selected=0):
     if not sort:
         cats = Category.objects.all()

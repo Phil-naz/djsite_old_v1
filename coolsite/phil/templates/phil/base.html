@@ -27,27 +27,28 @@
 
 			<li class="logo"><a href="{% url 'phil_home' %}"><div class="logo"></div></a></li> <!-- LOGO -->
             <!-- Top menu bar -->
-    {% phil_menucat as menu %}
-            <!-- Top menu from file templrtags/phil_tags.py -->
-    {% for m in menu %}
-         {% if not forloop.last %}
-         <li class="topmenu"><a href="{% url m.url_name %}">{{m.name}}</a></li>
-         {% else %}
-         <td><li class="last"><a href="{% url m.url_name %}">{{m.name}}</a></li></td>
-        {% endif %}
-    {% endfor %}
-            </ul>
+            <!-- Top menu from file utils.py -->
+{% for m in menu %}
+			<li><a href="{% url m.url_name %}">{{m.name}}</a></li>
+{% endfor %}
+			{% if request.user.is_authenticated %}
+			<li class="last"> {{user.first_name}} | <a href="{% url 'phil_logout' %}">&nbsp;Выйти</a></li>
+			{% else %}
+			<li class="last"><a href="{% url 'phil_register' %}">Регистрация</a> | <a href="{% url 'phil_login' %}">Войти</a> </li>
+			{% endif %}
 
-            <div class="clear"></div>
-            </td></tr></table>
-          </div>
-
-
+			<div class="clear"></div>
+				</td></tr></table>
+		</div>
 {% endblock mainmenu %}
 
 <table><tr><td height="34"> </td> </tr></table>
 {% block content %}
 {% endblock content %}
+
+
+	</div>
+
 <!-- Footer -->
 <table class="bottom">
 

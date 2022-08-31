@@ -25,7 +25,7 @@ SECRET_KEY = 'pdk8bcv@oy$o4asp2100ymrv(0y$&qy5#oh-i($2s=j4fa4uvp'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', 'r65448dp.beget.tech']
 
 
 # Application definition
@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'women.apps.WomenConfig',
     'phil.apps.PhilConfig',
 ]
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -82,6 +84,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': str(os.path.join(BASE_DIR, "db.sqlite3")),
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': 'r65448dp_django',
+        # 'USER': 'r65448dp_django',
+        # 'PASSWORD': 'k7Ccoe4t',
+        # 'HOST': 'r65448dp.beget.tech',
+        # 'PORT' : '3306',
     }
 }
 
@@ -133,3 +141,9 @@ MEDIA_URL = '/media/'
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': os.path.join(BASE_DIR, 'coolsite_cache'),
+    }
+}

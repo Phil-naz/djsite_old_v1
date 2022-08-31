@@ -15,7 +15,7 @@ class Women(models.Model):  # Wonen = name
         return self.title   # SQL: Women.objects.all()
 
     def get_absolute_url(self):   # Use similar name ('get_absolute_url') for using in admin panel
-        return reverse('post', kwargs={'post_slug': self.slug})   # функция reverse составляет url
+        return reverse('book', kwargs={'book_slug': self.slug})   # функция reverse составляет url, ‘POST’ - URL name from file ‘URL.PY’
 
     class Meta:
         verbose_name = 'Известные женщины'         # название в админ панели
@@ -31,7 +31,7 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('category', kwargs={'cat_slug': self.slug})   # функция reverse составляет url change slug = id, slug = pk
+        return reverse('category', kwargs={'cat_slug': self.slug})   # функция reverse составляет url change slug = id, slug = pk, ‘CATEGORY’ - URL name from file ‘URL.PY’
 
     class Meta:
         verbose_name = 'Категории' # название в админ панели

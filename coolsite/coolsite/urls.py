@@ -21,6 +21,11 @@ from coolsite import settings
 from women.views import *
 from django.urls import path, include
 
+
+from django.views.static import serve as mediaserve
+#from django.conf.urls import url
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('women/', include('women.urls')),
@@ -37,5 +42,10 @@ if settings.DEBUG:
     ] + urlpatterns
 
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# else:
+#     urlpatterns += [
+#         url(f'^{settings.MEDIA_URL.lstrip("/")}(?P<path>.*)$', mediaserve, {'document_root': settings.MEDIA_ROOT}),
+#         url(f'^{settings.STATIC_URL.lstrip("/")}(?P<path>.*)$', mediaserve, {'document_root': settings.STATIC_ROOT}),
+#     ]
 
 handler404 = pageNotFound
